@@ -16,7 +16,7 @@ export default function Layout({children}) {
     )
   }
   return (
-   <div className="bg-gradient-to-r from-black to-blue-900 min-h-screen">
+   <div className="bg-gradient-to-r from-black to-blue-900 min-h-screen p-2">
 
     <div className="block md:hidden">
       <button onClick={() => setShowNavigate(true)}> 
@@ -31,7 +31,7 @@ export default function Layout({children}) {
     </div>
     <div className="flex justify-center">
         <Navigate showNavigation = {showNavigate}/>
-        <div className="bg-white flex-grow mt-2 mr-2 mb-2 rounded-lg p-4">
+        <div className="bg-white flex-grow mt-2 mr-2 mb-2 rounded-lg p-4 py-8">
         {children}
         </div>
         {/*<button onClick={() => signOut()}>Sign out</button>*/}
