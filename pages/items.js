@@ -36,33 +36,52 @@ export default function Items() {
       {isLoading ? (
         <p className="text-gray-500">Loading products...</p>
       ) : products.length > 0 ? (
-        <table className="table-auto w-full border-collapse border border-gray-300">
+        <table className="table-auto w-full border-collapse border border-gray-400">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2 text-left">#</th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
+              <th className="border border-gray-400 px-4 py-2 text-left">#</th>
+              <th className="border border-gray-400 px-4 py-2 text-left">
                 Product Name
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
+              <th className="border border-gray-400 px-4 py-2 text-left">
                 Description
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">Price</th>
+              <th className="border border-gray-400 px-4 py-2 text-left">
+                Price
+              </th>
+              <th className="border border-gray-400 px-4 py-2 text-left">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             {products.map((product, index) => (
               <tr key={product._id} className="hover:bg-gray-50">
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-400 px-4 py-2">
                   {index + 1}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-400 px-4 py-2">
                   {product.title}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-400 px-4 py-2">
                   {product.description || "No description"}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-400 px-4 py-2">
                   ${product.price.toFixed(2)}
+                </td>
+                <td className="border border-gray-400 px-4 py-2 flex items-center justify-center space-x-2">
+                  <Link
+                    href={`/items/${product._id}`}
+                    className="bg-green-500 text-white text-sm px-2 py-1 rounded hover:bg-green-600 transition"
+                  >
+                    Edit
+                  </Link>
+                  <Link
+                    href={`/items/${product._id}`}
+                    className="bg-red-500 text-white text-sm px-2 py-1 rounded hover:bg-red-600 transition"
+                  >
+                    Delete
+                  </Link>
                 </td>
               </tr>
             ))}

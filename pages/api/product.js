@@ -20,19 +20,56 @@ export default async function handle(req, res) {
     }
 
     if (method === "GET") {
+      const { id } = req.query; // Get the `id` from query parameters
+
+      if (id) {
+        // If `id` is provided, find the product by ID
+        const product = await Product.findById(id);
+        if (!product) {
+          return res.status(404).json({ error: "Product not found." });
+        }
+        return res.status(200).json(product);
+      }
+
+      // Otherwise, return all products
       const products = await Product.find();
       return res.status(200).json(products);
     }
 
     if (method === "PUT") {
       const { _id, title, description, price } = req.body;
+    
+      // Validate required fields
       if (!_id || !title || price === undefined) {
         return res.status(400).json({ error: "ID, title, and price are required." });
       }
-
-      const productDoc = await Product.updateOne({ _id }, { title, description, price });
-      return res.status(200).json(productDoc);
+    
+      // Ensure price is a valid number
+      if (isNaN(price) || price < 0) {
+        return res.status(400).json({ error: "Price must be a valid positive number." });
+      }
+    
+      try {
+        // Attempt to update the product in the database
+        const productDoc = await Product.updateOne(
+          { _id },
+          { title, description, price }
+        );
+    
+        // Check if the product was found and updated
+        if (productDoc.matchedCount === 0) {
+          return res.status(404).json({ error: "Product not found." });
+        }
+    
+        // Return the updated product information
+        const updatedProduct = await Product.findById(_id); // Fetch the updated product
+        return res.status(200).json(updatedProduct);
+      } catch (error) {
+        console.error("Error updating product:", error);
+        return res.status(500).json({ error: "Internal server error." });
+      }
     }
+    
 
     if (method === "DELETE") {
       const { _id } = req.body;
