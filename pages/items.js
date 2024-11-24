@@ -76,12 +76,7 @@ export default function Items() {
                   >
                     Edit
                   </Link>
-                  <Link
-                    href={`/items/${product._id}`}
-                    className="bg-red-500 text-white text-sm px-2 py-1 rounded hover:bg-red-600 transition"
-                  >
-                    Delete
-                  </Link>
+                  
                 </td>
               </tr>
             ))}

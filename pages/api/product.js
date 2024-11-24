@@ -73,13 +73,24 @@ export default async function handle(req, res) {
 
     if (method === "DELETE") {
       const { _id } = req.body;
+    
       if (!_id) {
         return res.status(400).json({ error: "ID is required." });
       }
-
-      const productDoc = await Product.deleteOne({ _id });
-      return res.status(200).json(productDoc);
+    
+      try {
+        const result = await Product.deleteOne({ _id });
+    
+        if (result.deletedCount === 0) {
+          return res.status(404).json({ error: "Product not found." });
+        }
+    
+        return res.status(200).json({ message: "Product deleted successfully." });
+      } catch (error) {
+        return res.status(500).json({ error: "An error occurred while deleting the product." });
+      }
     }
+    
 
     // If the method is not supported
     res.setHeader("Allow", ["POST", "GET", "PUT", "DELETE"]);

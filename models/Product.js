@@ -5,7 +5,10 @@ import clientPromise from "@/lib/mongodb";
 const ProductSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: String,
+  images: [{type:String}],
   price: { type: Number, default: 0, required: true },
+},{
+  timestamps: true,
 });
 
 // Check if 'Product' model is already defined; if not, define it

@@ -28,6 +28,7 @@ export default function EditProductPage() {
     <div>
       {productInfo ? (
        <Layout>
+       <h1>Edit product</h1>
         <ProductForm product={productInfo} />
        </Layout>
       ) : (
