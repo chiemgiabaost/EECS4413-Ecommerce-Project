@@ -2,17 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-input, textarea{
-    @apply border border-gray-200 rounded-lg px-3 w-full mb-3;
-    
-}
-input:focus , textarea:focus{
-    @apply border-black;
-}
-h1{
-    @apply text-lg mb-3;
+.btn-primary {
+    color: white;
+    background-color: #1d4ed8;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    padding: 0.625rem 1.25rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.btn-new-product{
-    @apply bg-gradient-to-r from-black to-blue-900 rounded-lg px-4 py-1 text-white;
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #93c5fd;
 }

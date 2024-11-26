@@ -10,7 +10,7 @@ export default async function handle(req, res) {
 
   try {
     if (method === "POST") {
-      const { title, description, price } = req.body;
+      const { title, description, price, images } = req.body;
       if (!title || price === undefined) {
         return res.status(400).json({ error: "Title and price are required." });
       }
@@ -37,7 +37,7 @@ export default async function handle(req, res) {
     }
 
     if (method === "PUT") {
-      const { _id, title, description, price } = req.body;
+      const { _id, title, description, price, images } = req.body;
     
       // Validate required fields
       if (!_id || !title || price === undefined) {
@@ -53,7 +53,7 @@ export default async function handle(req, res) {
         // Attempt to update the product in the database
         const productDoc = await Product.updateOne(
           { _id },
-          { title, description, price }
+          { title, description, price, images }
         );
     
         // Check if the product was found and updated

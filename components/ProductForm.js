@@ -19,7 +19,7 @@ export default function ProductForm({product}) {
   const [goToProducts,setGoToProducts] = useState(false);
   const [isUploading,setIsUploading] = useState(false);
   const router = useRouter();
-  console.log("ProductForm",description);
+  console.log("ProductForm", images.length);
   async function saveProduct(ev) {
     ev.preventDefault();
     const data = {
@@ -55,6 +55,9 @@ export default function ProductForm({product}) {
   }
   function updateImagesOrder(images) {
     setImages(images);
+  }
+  function handleDelete(){
+    
   }
   function setProductProp(propName,value) {
     setProductProperties(prev => {
@@ -135,7 +138,7 @@ export default function ProductForm({product}) {
         />
         <button
           type="submit"
-          className="btn-primary">
+          className="p-1 bg-blue-500 rounded-md">
           Save
         </button>
       </form>
