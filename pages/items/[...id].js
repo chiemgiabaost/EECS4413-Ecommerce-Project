@@ -21,16 +21,18 @@ export default function EditProductPage() {
   }, [id]); // Depend on `id` to refetch when it changes
 
   if (!id) {
-    return <p>Loading...</p>; // Show loading until `id` is available
+    return <p>Loading...</p>; 
   }
 
   return (
     <div>
       {productInfo ? (
-       <Layout>
-       <h1>Edit product</h1>
-        <ProductForm product={productInfo} />
-       </Layout>
+        <Layout>
+      <h1>Edit product</h1>
+      {productInfo && (
+        <ProductForm {...productInfo} />
+      )}
+    </Layout>
       ) : (
         <p>Loading product data...</p>
       )}

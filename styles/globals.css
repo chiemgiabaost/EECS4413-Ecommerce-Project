@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+input, textarea{
+    @apply border border-gray-200 rounded-lg px-3 w-full mb-3;
+    
+}
+input:focus , textarea:focus{
+    @apply border-black;
+}
+h1{
+    @apply text-lg mb-3;
+}
+
+.btn-new-product{
+    @apply bg-gradient-to-r from-black to-blue-900 rounded-lg px-4 py-1 text-white;
+}
+
 .btn-primary {
     color: white;
     background-color: #1d4ed8;
@@ -21,3 +36,75 @@
     outline: none;
     box-shadow: 0 0 0 4px #93c5fd;
 }
+img{
+    max-height: 100%;
+}
+
+label {
+    font-weight: 500; /* Use font-weight instead of text-bold */
+    font-size: 1rem; /* Adjust for readability */
+    margin-bottom: 0.5rem; /* Space below the label */
+    display: block; /* Ensure the label is on its own line */
+    color: #333; /* Set a neutral, accessible text color */
+    line-height: 1.25; /* Improve spacing between text lines if wrapped */
+  }
+  table.basic {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  table.basic th, table.basic td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  table.basic th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  table.basic tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table.basic tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  table.basic td {
+    padding: 12px;
+  }
+  
+  table.basic .text-center {
+    text-align: center;
+  }
+  
+  .btn-default {
+    background-color: #eee;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .btn-default:hover {
+    background-color: #ddd;
+  }
+  
+  .btn-red {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-red:hover {
+    background-color: #e63939;
+  }
+  
