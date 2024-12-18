@@ -1,0 +1,3 @@
+[submodule "EECS4413-Front"]
+	path = EECS4413-Front
+	url = https://github.com/sravankuriseti/EECS4413-Front.git

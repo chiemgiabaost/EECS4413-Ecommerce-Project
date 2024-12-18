@@ -43,6 +43,7 @@ export default function Items() {
               <th>Product Name</th>
               <th>Description</th>
               <th>Price</th>
+              <th>Quantity</th> {/* Added Quantity Column */}
               <th>Action</th>
             </tr>
           </thead>
@@ -53,6 +54,7 @@ export default function Items() {
                 <td>{product.title}</td>
                 <td>{product.description || "No description"}</td>
                 <td>${product.price.toFixed(2)}</td>
+                <td>{product.quantity}</td> {/* Displaying Quantity */}
                 <td className="text-center">
                   <Link href={`/items/${product._id}`} className="btn-default">
                     Edit

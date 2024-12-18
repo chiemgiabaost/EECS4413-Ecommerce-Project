@@ -4,18 +4,23 @@ import { mongooseConnect } from "@/lib/mongoose";
 
 export default async function handle(req, res) {
   const { method } = req;
-  
+
   // Ensure the database is connected
   await mongooseConnect();
 
   try {
     if (method === "POST") {
-      const { title, description, price, images } = req.body;
-      if (!title || price === undefined) {
-        return res.status(400).json({ error: "Title and price are required." });
+      const { title, description, price, images, quantity, category } = req.body;
+      if (!title || price === undefined || quantity === undefined) {
+        return res.status(400).json({ error: "Title, price, and quantity are required." });
       }
 
-      const productDoc = await Product.create({ title, description, price });
+      // Validate quantity
+      if (isNaN(quantity) || quantity < 0) {
+        return res.status(400).json({ error: "Quantity must be a valid positive number." });
+      }
+
+      const productDoc = await Product.create({ title, description, price, images, quantity, category });
       return res.status(201).json(productDoc);
     }
 
@@ -37,30 +42,34 @@ export default async function handle(req, res) {
     }
 
     if (method === "PUT") {
-      const { _id, title, description, price, images } = req.body;
-    
+      const { _id, title, description, price, images, quantity, category } = req.body;
+
       // Validate required fields
-      if (!_id || !title || price === undefined) {
-        return res.status(400).json({ error: "ID, title, and price are required." });
+      if (!_id || !title || price === undefined || quantity === undefined) {
+        return res.status(400).json({ error: "ID, title, price, and quantity are required." });
       }
-    
-      // Ensure price is a valid number
+
+      // Ensure price and quantity are valid
       if (isNaN(price) || price < 0) {
         return res.status(400).json({ error: "Price must be a valid positive number." });
       }
-    
+
+      if (isNaN(quantity) || quantity < 0) {
+        return res.status(400).json({ error: "Quantity must be a valid positive number." });
+      }
+
       try {
         // Attempt to update the product in the database
         const productDoc = await Product.updateOne(
           { _id },
-          { title, description, price, images }
+          { title, description, price, images, quantity, category } // Include quantity in update
         );
-    
+
         // Check if the product was found and updated
         if (productDoc.matchedCount === 0) {
           return res.status(404).json({ error: "Product not found." });
         }
-    
+
         // Return the updated product information
         const updatedProduct = await Product.findById(_id); // Fetch the updated product
         return res.status(200).json(updatedProduct);
@@ -69,28 +78,26 @@ export default async function handle(req, res) {
         return res.status(500).json({ error: "Internal server error." });
       }
     }
-    
 
     if (method === "DELETE") {
       const { _id } = req.body;
-    
+
       if (!_id) {
         return res.status(400).json({ error: "ID is required." });
       }
-    
+
       try {
         const result = await Product.deleteOne({ _id });
-    
+
         if (result.deletedCount === 0) {
           return res.status(404).json({ error: "Product not found." });
         }
-    
+
         return res.status(200).json({ message: "Product deleted successfully." });
       } catch (error) {
         return res.status(500).json({ error: "An error occurred while deleting the product." });
       }
     }
-    
 
     // If the method is not supported
     res.setHeader("Allow", ["POST", "GET", "PUT", "DELETE"]);

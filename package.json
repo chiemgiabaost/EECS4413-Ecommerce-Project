@@ -28,6 +28,7 @@
     "react-spinners": "^0.13.8",
     "react-sweetalert2": "^0.6.0",
     "sortablejs": "^1.15.0",
+    "styled-components": "^6.1.13",
     "tailwindcss": "^3.4.14",
     "typeorm": "0.2.28"
   }
