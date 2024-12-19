@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Layout from "@/components/Layout";
-import React from 'react';
+import React from "react";
 
 // Styled components
 const OrdersWrapper = styled.div`
@@ -35,10 +35,11 @@ const Header = styled.h1`
   text-align: center;
 `;
 
-const OrderDetailsButton = styled.button`
-  padding: 5px 10px;
+const SortButton = styled.button`
+  padding: 10px 20px;
+  margin-bottom: 20px;
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -62,6 +63,7 @@ const LineItemDetails = styled.td`
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sortAscending, setSortAscending] = useState(true); // State to track sorting order
 
   // Fetch orders from the API
   useEffect(() => {
@@ -77,6 +79,24 @@ export default function Orders() {
       });
   }, []);
 
+  // Format date to readable format
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString(); // formats the date and time based on the locale
+  };
+
+  // Function to handle sorting by createdAt date
+  const sortOrdersByDate = () => {
+    const sortedOrders = [...orders].sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return sortAscending ? dateA - dateB : dateB - dateA;
+    });
+
+    setOrders(sortedOrders);
+    setSortAscending(!sortAscending); // Toggle sorting order
+  };
+
   if (loading) {
     return <div>Loading orders...</div>;
   }
@@ -85,6 +105,11 @@ export default function Orders() {
     <Layout>
       <OrdersWrapper>
         <Header>All Orders</Header>
+        {/* Sorting Button */}
+        <SortButton onClick={sortOrdersByDate}>
+          Sort by Time ({sortAscending ? "Ascending" : "Descending"})
+        </SortButton>
+
         {orders.length === 0 ? (
           <p>No orders found.</p>
         ) : (
@@ -98,6 +123,7 @@ export default function Orders() {
                 <th>Postal Code</th>
                 <th>Country</th>
                 <th>Paid</th>
+                <th>Created At</th> {/* Added Created At */}
               </tr>
             </thead>
             <tbody>
@@ -111,18 +137,21 @@ export default function Orders() {
                     <td>{order.postalCode}</td>
                     <td>{order.country}</td>
                     <td>{order.paid ? "Yes" : "No"}</td>
+                    <td>{formatDate(order.createdAt)}</td> {/* Display Created At */}
                   </OrderRow>
 
                   {/* Render line items for the current order */}
-                  {order.line_items && order.line_items.length > 0 && order.line_items.map((lineItem, index) => (
-                    <LineItemRow key={`line-item-${index}`}>
-                      <LineItemDetails colSpan={9}>
-                        <strong>Product Name:</strong> {lineItem.price_data.product_data.name} <br />
-                        <strong>Quantity:</strong> {lineItem.quantity} <br />
-                        <strong>Price:</strong> ${(lineItem.price_data.unit_amount / 100).toFixed(2)} <br />
-                      </LineItemDetails>
-                    </LineItemRow>
-                  ))}
+                  {order.line_items &&
+                    order.line_items.length > 0 &&
+                    order.line_items.map((lineItem, index) => (
+                      <LineItemRow key={`line-item-${index}`}>
+                        <LineItemDetails colSpan={9}>
+                          <strong>Product Name:</strong> {lineItem.price_data.product_data.name} <br />
+                          <strong>Quantity:</strong> {lineItem.quantity} <br />
+                          <strong>Price:</strong> ${(lineItem.price_data.unit_amount / 100).toFixed(2)} <br />
+                        </LineItemDetails>
+                      </LineItemRow>
+                    ))}
                 </React.Fragment>
               ))}
             </tbody>
