@@ -4,7 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 // import clientPromise from "@/lib/mongodb";
 
 // Define your admin emails
-const adminEmails = ['chiemgiabaost@gmail.com', 'kuriseti.sravan@gmail.com',];
+const adminEmails = ['chiemgiabaost@gmail.com', 'kuriseti.sravan@gmail.com','jeremyj3@my.yorku.ca'];
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,  // Use NEXTAUTH_SECRET instead of NEXT_PUBLIC_SECRET
