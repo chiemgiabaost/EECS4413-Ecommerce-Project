@@ -39,7 +39,7 @@ This project is an admin dashboard for an e-commerce platform built with **Next.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/ecommerce-admin.git
+   [git clone https://github.com/your-username/ecommerce-admin.git](https://github.com/chiemgiabaost/EECS4413-Ecommerce-Project.git)
    cd ecommerce-admin
    ```
 
@@ -48,16 +48,7 @@ This project is an admin dashboard for an e-commerce platform built with **Next.
    yarn install
    ```
 
-3. Set up environment variables:
-   Create a `.env.local` file in the root directory and add the following:
 
-   ```env
-   MONGODB_URI=<your_mongo_connection_string>
-   NEXTAUTH_URL=<your_project_url>
-   AWS_ACCESS_KEY_ID=<your_aws_access_key>
-   AWS_SECRET_ACCESS_KEY=<your_aws_secret_key>
-   S3_BUCKET_NAME=<your_s3_bucket_name>
-   ```
 
 4. Run the development server:
    ```bash
